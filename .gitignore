@@ -31,3 +31,8 @@ Desktop.ini
 
 # Optional local npm cache
 .npm/
+
+# Personal notes — never committed, never published
+LOCAL.md
+*.local.md
+
