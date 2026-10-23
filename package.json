@@ -1,0 +1,65 @@
+{
+  "name": "dsh-ledger-kitty",
+  "version": "0.2.1",
+  "type": "module",
+  "description": "A white kitten accountant on the window sill: per-answer and per-session cost, prompt-cache savings, context size, peak-hour countdown, live balance, synthesized meow and purr, and reactions while the agent works.",
+  "keywords": [
+    "deepseek",
+    "harness",
+    "dsh",
+    "dsh-plugin",
+    "pet",
+    "cat",
+    "cost",
+    "usage",
+    "balance"
+  ],
+  "author": "LexVolkov",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LexVolkov/dsh-ledger-kitty.git"
+  },
+  "homepage": "https://github.com/LexVolkov/dsh-ledger-kitty#readme",
+  "bugs": {
+    "url": "https://github.com/LexVolkov/dsh-ledger-kitty/issues"
+  },
+  "icon": "./icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./dist/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "prepublishOnly": "node scripts/build.mjs"
+  },
+  "files": [
+    "index.js",
+    "src",
+    "dist/client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
