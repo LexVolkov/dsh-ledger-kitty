@@ -1,5 +1,9 @@
 # dsh-ledger-kitty
 
+<p align="center">
+  <img src="assets/icon-512.png" width="180" height="180" alt="Ledger Kitty — a white kitten accountant">
+</p>
+
 A white kitten accountant on the window sill. It is drawn as one inline SVG, so
 every part can be animated separately and nothing is rasterized at a fixed size;
 on top of that it keeps the numbers: cost of the last answer, cost of the whole
