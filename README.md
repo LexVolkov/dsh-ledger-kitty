@@ -1,7 +1,7 @@
 # dsh-ledger-kitty
 
 <p align="center">
-  <img src="assets/icon-512.png" width="180" height="180" alt="Ledger Kitty — a white kitten accountant">
+  <img src="assets/kitty.jpg" width="220" alt="Ledger Kitty — a white kitten accountant">
 </p>
 
 A white kitten accountant on the window sill. It is drawn as one inline SVG, so
