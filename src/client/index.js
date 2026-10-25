@@ -17,6 +17,11 @@ export function createPlugin(require) {
       } catch (error) {
         /* the picker still works: STRINGS is read directly */
       }
+      try {
+        ctx.locale.register('ledger-kitty', 'zh', STRINGS.zh);
+      } catch (error) {
+        /* the picker still works: STRINGS is read directly */
+      }
       const t = ctx.locale.bind('ledger-kitty');
       // The pet follows the app language until the user picks one in settings.
       let defaultLang = 'en';
@@ -24,6 +29,7 @@ export function createPlugin(require) {
         const active = String(ctx.locale.getLocale().active || '').toLowerCase();
         if (active.indexOf('ru') === 0) defaultLang = 'ru';
         else if (active.indexOf('uk') === 0) defaultLang = 'uk';
+        else if (active.indexOf('zh') === 0) defaultLang = 'zh';
       } catch (error) {
         /* keep English */
       }

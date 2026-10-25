@@ -1,6 +1,6 @@
 {
   "name": "dsh-ledger-kitty",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "type": "module",
   "description": "A white kitten accountant on the window sill: per-answer and per-session cost, prompt-cache savings, context size, peak-hour countdown, live balance, synthesized meow and purr, and reactions while the agent works.",
   "engines": {

@@ -24,11 +24,11 @@ open session and the remaining balance, in one chosen currency.
   screen edge, including the floor. The position is remembered per browser.
 - **Click = balance** — a silent hop, then the balance card (no chatter).
 - **Double click = settings** — currency, language (English / Русский /
-  Українська), and the cat's size (0.5× / 1× / 1.25× / 1.5×). Settings are
+  Українська / 中文), and the cat's size (0.5× / 1× / 1.25× / 1.5×). Settings are
   remembered per browser. The double click is detected from two pointer-ups
   within 400 ms, because pointer capture makes the browser's own `dblclick`
   unreliable on this element.
-- **Own language** — the three dictionaries live in `STRINGS`; the picker is
+- **Own language** — the four dictionaries live in `STRINGS`; the picker is
   independent of the app locale, which only seeds the initial value.
 - **Right click = menu** — Balance / Settings, so both panels stay reachable even
   if a double click is awkward on a touchpad.

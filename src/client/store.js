@@ -31,7 +31,7 @@ export function normalizeSize(value) {
   return SIZES.indexOf(value) === -1 ? 1 : value;
 }
 
-export const LANGS = ['en', 'ru', 'uk'];
+export const LANGS = ['en', 'ru', 'uk', 'zh'];
 
 export function normalizeSettings(value, fallbackLang) {
   const next = {

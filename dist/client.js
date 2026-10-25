@@ -207,8 +207,62 @@ var __ledgerKitty = (() => {
     "error.unreachable": "Host \u043D\u0435 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u0430\u0454"
   };
 
+  // src/client/i18n/zh.js
+  var zh = {
+    "aria": "\u8BB0\u8D26\u732B",
+    "hint": "\u62D6\u52A8\u6211 \xB7 \u5355\u51FB\u770B\u4F59\u989D \xB7 \u53CC\u51FB\u8BBE\u7F6E \xB7 \u53F3\u952E\u83DC\u5355",
+    "size": "\u5927\u5C0F {n}\xD7",
+    "reaction.done": "\u5B8C\u6210\uFF01\u{1F389}",
+    "reaction.wait": "\u9700\u8981\u4F60\u56DE\u590D",
+    "card.answer": "\u672C\u6B21\u56DE\u7B54",
+    "card.session": "\u4F1A\u8BDD",
+    "card.balance": "\u4F59\u989D",
+    "card.tokens": "token",
+    "card.unavailable": "\u2014",
+    "card.saved": "\u7F13\u5B58\u8282\u7701",
+    "card.context": "\u4E0A\u4E0B\u6587",
+    "peak.peak": "\u9AD8\u5CF0",
+    "peak.off": "\u4F4E\u8C37",
+    "peak.in": "{time}\u540E",
+    "time.hm": "{h}\u5C0F\u65F6{m}\u5206",
+    "time.m": "{m}\u5206",
+    "card.close": "\u5173\u95ED",
+    "settings.title": "\u8BBE\u7F6E",
+    "settings.close": "\u5173\u95ED",
+    "settings.back": "\u8FD4\u56DE",
+    "settings.currency": "\u8D27\u5E01",
+    "settings.language": "\u8BED\u8A00",
+    "settings.rate": "\u6C47\u7387",
+    "settings.rate.offline": "\u5B9E\u65F6\u6C47\u7387\u4E0D\u53EF\u7528",
+    "settings.size": "\u5927\u5C0F",
+    "settings.sound": "\u97F3\u6548",
+    "settings.volume": "\u97F3\u91CF",
+    "settings.sound.hint": "\u9996\u6B21\u70B9\u51FB\u5C0F\u732B\u540E\u624D\u4F1A\u51FA\u58F0\u3002",
+    "sound.meow": "\u55B5",
+    "sound.typing": "\u6253\u5B57",
+    "sound.receipt": "\u5C0F\u7968",
+    "sound.question": "\u63D0\u95EE",
+    "sound.purr": "\u547C\u565C",
+    "sound.preview": "\u8BD5\u542C",
+    "menu.balance": "\u4F59\u989D",
+    "menu.settings": "\u8BBE\u7F6E",
+    "line.1": "\u55B5\uFF01",
+    "line.2": "\u6211\u5728\u8FD9\u513F",
+    "line.3": "\u4F11\u606F\u4E00\u4E0B",
+    "line.4": "\u4F60\u771F\u68D2 \u2728",
+    "line.5": "\u518D\u6765\u4E00\u6B65\uFF1F",
+    "line.6": "\u6478\u6478\u6211 \u{1F43E}",
+    "error.no-account": "DeepSeek \u8D26\u53F7\u672A\u8FDE\u63A5",
+    "error.signed-out": "\u8BF7\u767B\u5F55 DeepSeek \u67E5\u770B\u4F59\u989D",
+    "error.offline": "\u65E0\u7F51\u7EDC \u2014 \u6C47\u7387\u4E0D\u53EF\u7528",
+    "error.stale": "\u6C47\u7387\u5DF2\u8FC7\u671F",
+    "error.error": "\u83B7\u53D6\u4F59\u989D\u5931\u8D25",
+    "error.generic": "\u52A0\u8F7D\u6570\u636E\u5931\u8D25",
+    "error.unreachable": "Host \u65E0\u54CD\u5E94"
+  };
+
   // src/client/i18n/index.js
-  var STRINGS = { en, ru, uk };
+  var STRINGS = { en, ru, uk, zh };
 
   // src/client/constants.js
   var PET_W = 120;
@@ -299,7 +353,7 @@ var __ledgerKitty = (() => {
   function normalizeSize(value) {
     return SIZES.indexOf(value) === -1 ? 1 : value;
   }
-  var LANGS = ["en", "ru", "uk"];
+  var LANGS = ["en", "ru", "uk", "zh"];
   function normalizeSettings(value, fallbackLang) {
     const next = {
       currency: "CNY",
@@ -1356,7 +1410,7 @@ var __ledgerKitty = (() => {
           },
           "aria-label": t("settings.language")
         },
-        [["en", "English"], ["ru", "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"], ["uk", "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430"]].map(function(pair) {
+        [["en", "English"], ["ru", "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"], ["uk", "\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430"], ["zh", "\u4E2D\u6587"]].map(function(pair) {
           return h("option", { key: pair[0], value: pair[0] }, pair[1]);
         })
       ),
@@ -2195,12 +2249,17 @@ var __ledgerKitty = (() => {
           ctx2.locale.register("ledger-kitty", "uk", STRINGS.uk);
         } catch (error) {
         }
+        try {
+          ctx2.locale.register("ledger-kitty", "zh", STRINGS.zh);
+        } catch (error) {
+        }
         const t = ctx2.locale.bind("ledger-kitty");
         let defaultLang = "en";
         try {
           const active = String(ctx2.locale.getLocale().active || "").toLowerCase();
           if (active.indexOf("ru") === 0) defaultLang = "ru";
           else if (active.indexOf("uk") === 0) defaultLang = "uk";
+          else if (active.indexOf("zh") === 0) defaultLang = "zh";
         } catch (error) {
         }
         ctx2.slots.inject("shell.overlay", function() {

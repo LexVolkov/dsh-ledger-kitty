@@ -104,7 +104,7 @@ export function SettingsPanel(state) {
       onChange: function (event) { state.onLanguage(event.target.value); },
       'aria-label': t('settings.language'),
     },
-      [['en', 'English'], ['ru', '\u0420\u0443\u0441\u0441\u043a\u0438\u0439'], ['uk', '\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430']].map(function (pair) {
+      [['en', 'English'], ['ru', '\u0420\u0443\u0441\u0441\u043a\u0438\u0439'], ['uk', '\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430'], ['zh', '\u4e2d\u6587']].map(function (pair) {
         return h('option', { key: pair[0], value: pair[0] }, pair[1]);
       }),
     ),

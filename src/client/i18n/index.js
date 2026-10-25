@@ -1,8 +1,9 @@
 import { en } from './en.js';
 import { ru } from './ru.js';
 import { uk } from './uk.js';
+import { zh } from './zh.js';
 
-export const STRINGS = { en, ru, uk };
+export const STRINGS = { en, ru, uk, zh };
 
 /**
  * The pet carries its own language: it follows the app locale only until the
