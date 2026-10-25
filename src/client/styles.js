@@ -123,6 +123,7 @@ export const CSS = [
   '.dpp-card-value{margin-top:3px;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}',
   '.dpp-card-saved{font-weight:600;color:var(--dsw-alias-state-success-primary)}',
   '.dpp-card-foot{margin-top:6px;font-size:10.5px;color:var(--dsw-alias-label-secondary)}',
+  '.dpp-card-note{margin-top:4px;font-size:10.5px;line-height:1.35;color:var(--dsw-alias-label-secondary)}',
 
   '@keyframes dpp-idle{0%,100%{transform:scale(1,1)}50%{transform:scale(1.01,.988)}}',
   '@keyframes dpp-hop{0%{transform:translateY(0) scale(1,1)}18%{transform:translateY(2px) scale(1.08,.9)}',

@@ -44,6 +44,13 @@ const uk = {
   'line.4': 'Ти молодець \u2728',
   'line.5': 'Ще один крок?',
   'line.6': 'Погладь мене \ud83d\udc3e',
+  'error.no-account': 'Акаунт DeepSeek не підключено',
+  'error.signed-out': 'Увійдіть в акаунт DeepSeek, щоб бачити баланс',
+  'error.offline': 'Немає мережі — курси недоступні',
+  'error.stale': 'Курси застаріли',
+  'error.error': 'Не вдалося отримати баланс',
+  'error.generic': 'Не вдалося завантажити дані',
+  'error.unreachable': 'Host не відповідає',
 }
 
 export { uk };

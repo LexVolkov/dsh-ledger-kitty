@@ -6,7 +6,8 @@ export const ROUTE_PATH = '/dsh-ledger-kitty/state';
 /**
  * One read-only JSON route for the browser half: the session ledger plus the
  * wallet balance and the FX table. Served by the Host, so no credential ever
- * reaches the page.
+ * reaches the page. Each optional part carries a `reason` so the card can say
+ * what exactly is missing instead of a bare dash.
  */
 export function registerStateRoute(ctx, deps) {
   return ctx.webServer.register({
@@ -22,8 +23,10 @@ export function registerStateRoute(ctx, deps) {
         const now = Date.now();
         payload = {
           ok: true,
-          balance: results[0],
-          rates: results[1],
+          balance: results[0].value,
+          balanceReason: results[0].reason,
+          rates: results[1].value,
+          ratesReason: results[1].reason,
           session: { tokens: row.tokens, cost: row.cost, saved: row.saved, last: row.last },
           peak: isPeak(now),
           nextChangeAt: peakChangeAt(now),
@@ -32,8 +35,11 @@ export function registerStateRoute(ctx, deps) {
       } catch (error) {
         payload = {
           ok: false,
+          reason: 'error',
           balance: null,
+          balanceReason: 'error',
           rates: null,
+          ratesReason: 'error',
           session: emptyRow(),
           peak: isPeak(Date.now()),
           nextChangeAt: null,

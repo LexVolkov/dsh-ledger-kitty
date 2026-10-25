@@ -1,17 +1,21 @@
 const RATES_URL = 'https://open.er-api.com/v6/latest/CNY';
 const RATES_TTL_MS = 6 * 60 * 60 * 1000;
+const RETRY_MS = 10 * 60 * 1000;
 
 /**
  * Live FX table, quoted as 1 CNY -> currency. A free keyless endpoint is used
  * on purpose: the feature must work without the user registering anywhere.
- * Cached for six hours; a failed attempt retries in ten minutes and keeps the
- * previous table (null when nothing was fetched yet).
+ * Cached for six hours; a failure retries in ten minutes, keeps serving the
+ * previous table as `stale`, and reports `offline` when nothing was fetched yet.
  */
 export function createRatesReader() {
-  const cache = { at: 0, value: null };
+  const cache = { at: 0, result: null, failed: false };
 
   return async function readRates() {
-    if (cache.value && Date.now() - cache.at < RATES_TTL_MS) return cache.value;
+    const ttl = cache.failed ? RETRY_MS : RATES_TTL_MS;
+    if (cache.result && cache.result.value && Date.now() - cache.at < ttl) {
+      return { value: cache.result.value, reason: cache.failed ? 'stale' : 'ok' };
+    }
     try {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 6000);
@@ -33,11 +37,16 @@ export function createRatesReader() {
       }
       if (!Number.isFinite(picked.USD)) throw new Error('rates missing USD');
       cache.at = Date.now();
-      cache.value = picked;
-      return picked;
+      cache.failed = false;
+      cache.result = { value: picked, reason: 'ok' };
+      return cache.result;
     } catch (error) {
-      cache.at = Date.now() - RATES_TTL_MS + 10 * 60 * 1000;
-      return cache.value;
+      cache.at = Date.now();
+      cache.failed = true;
+      if (cache.result && cache.result.value) {
+        return { value: cache.result.value, reason: 'stale' };
+      }
+      return { value: null, reason: 'offline' };
     }
   };
 }

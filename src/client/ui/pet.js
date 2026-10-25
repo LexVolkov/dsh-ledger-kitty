@@ -249,9 +249,15 @@ export function LedgerKitty(props) {
   const refreshCard = useCallback(function (mode, sessionId) {
     window.setTimeout(function () {
       fetchState(sessionId).then(function (data) {
-        if (data && data.ok) showCard(mode, data, mode === 'receipt' ? 15000 : 12000);
+        if (data && data.ok) {
+          showCard(mode, data, mode === 'receipt' ? 15000 : 12000);
+          return;
+        }
+        // The route answered but the Host could not build the payload.
+        showCard(mode, { ok: false, reason: (data && data.reason) || 'generic' }, 9000);
       }).catch(function () {
-        /* Host route missing or offline: stay quiet, the cat still lives */
+        // Route missing or the Host is unreachable: say so instead of nothing.
+        showCard(mode, { ok: false, reason: 'unreachable' }, 9000);
       });
     }, mode === 'receipt' ? 500 : 0);
   }, [showCard]);

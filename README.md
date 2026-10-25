@@ -39,7 +39,8 @@ publishes it on one read-only route, `GET /dsh-ledger-kitty/state?session=<id>`:
 
 ```json
 { "ok": true,
-  "balance": { "CNY": 41.2, "USD": null },
+  "balance": { "CNY": 41.2, "USD": null }, "balanceReason": "ok",
+  "rates": { "USD": 0.14 }, "ratesReason": "ok",
   "session": { "tokens": 1204000, "cost": 0.82, "saved": 0.25,
                "last": { "tokens": 12480, "cost": 0.013, "context": 400000 } },
   "peak": false, "nextChangeAt": 1792770000000, "contextWindow": 1000000 }
@@ -49,6 +50,10 @@ publishes it on one read-only route, `GET /dsh-ledger-kitty/state?session=<id>`:
   then the same for the whole open session, the money the prompt cache saved
   (`cacheReadTokens × (miss − hit)`), the context size as tokens and percent of
   the 1M window, and the remaining balance underneath.
+- **Says what is missing** — no account, a signed-out session, no network or an
+  unreachable Host each get their own line under the balance instead of a bare
+  dash: “Аккаунт DeepSeek не подключён”, “Нет сети — курсы недоступны”, “Host не
+  отвечает”. A missing exchange rate renders as “—” and never as `$0.00`.
 - **Peak countdown** — the receipt ends with `непик · через 1 ч 15 мин`: the Host
   returns the next Beijing price boundary (`nextChangeAt`), so the cat tells you
   when the cheap tariff starts.
@@ -223,23 +228,25 @@ plugin by itself; a Host change still needs an app restart.
   `initRuntime()` before the first render.
 - Text goes through the Client `locale` service and the pet's own language picker.
 
-## Install (this profile)
+## Install
 
-The profile links this directory, so after `npm run build` the page reloads the
-plugin; a Host-side change needs an app restart.
+Requires DSH `>=0.2.1-0 <0.3.0`, declared as `engines.dsh`.
 
 ```powershell
-# from a DSH session: plugin_manager -> install_bundle, target: <absolute path>
+dsh plugin --profile web add dsh-ledger-kitty
 ```
 
-## Publish to the DSH market
+For local development the profile can link this directory instead; after
+`npm run build` the page reloads the plugin, while a Host-side change needs an
+app restart.
 
-1. Pick a unique npm name (this one is `dsh-ledger-kitty`) and remove `"private": true`.
-2. `npm publish`.
-3. Add the package to the market index (`https://awesome-dsh-plugin.com/plugins.json`,
-   repository `github.com/awesome-dsh-plugin/awesome-dsh-plugin`) — the Discover tab
-   installs it with one click. The desktop client only installs npm-published
-   plugins, so publishing is required for that route.
+## Publish a new version
+
+1. Bump `version` in `package.json`.
+2. `npx -y npm@12 stage publish --access public`, then approve the staged
+   version on https://www.npmjs.com/package/dsh-ledger-kitty (2FA).
+3. Nothing else: the market catalog reads the version and downloads from npm
+   through the `repository` field, so no catalog PR is needed for an update.
 
 ## License
 

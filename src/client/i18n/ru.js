@@ -44,6 +44,13 @@ const ru = {
   'line.4': 'Ты молодец \u2728',
   'line.5': 'Ещё один шаг?',
   'line.6': 'Погладь меня \ud83d\udc3e',
+  'error.no-account': 'Аккаунт DeepSeek не подключён',
+  'error.signed-out': 'Войдите в аккаунт DeepSeek, чтобы видеть баланс',
+  'error.offline': 'Нет сети — курсы недоступны',
+  'error.stale': 'Курсы устарели',
+  'error.error': 'Не удалось получить баланс',
+  'error.generic': 'Не удалось загрузить данные',
+  'error.unreachable': 'Host не отвечает',
 }
 
 export { ru };

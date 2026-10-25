@@ -44,6 +44,13 @@ const en = {
     'line.4': 'Nice work \u2728',
     'line.5': 'One more step?',
     'line.6': 'Pet me \ud83d\udc3e',
+    'error.no-account': 'DeepSeek account is not connected',
+    'error.signed-out': 'Sign in to DeepSeek to see the balance',
+    'error.offline': 'No network — exchange rates are unavailable',
+    'error.stale': 'Exchange rates are stale',
+    'error.error': 'Could not fetch the balance',
+    'error.generic': 'Could not load the data',
+    'error.unreachable': 'The Host is not responding',
   }
 
 export { en };

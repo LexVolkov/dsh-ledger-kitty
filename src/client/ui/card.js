@@ -20,6 +20,13 @@ export function PetCard(state) {
   const balance = data.balance || {};
   const cashCny = balanceToCny(balance, rates);
   const cash = cnyToUnit(cashCny, unit, rates);
+
+  // A missing rate must read as "—", never as $0.00.
+  function money(value, negate) {
+    const converted = cnyToUnit(value, unit, rates);
+    if (converted == null) return t('card.unavailable');
+    return (negate ? '\u2212' : '') + formatMoney(converted, unit);
+  }
   const box = state.box || { shift: 0, tail: 80 };
   const rows = [];
 
@@ -27,6 +34,28 @@ export function PetCard(state) {
   const contextTokens = Number(last.context) || 0;
   const windowTokens = Number(data.contextWindow) || 1e6;
   const percent = windowTokens > 0 ? Math.min(100, Math.round((contextTokens / windowTokens) * 100)) : 0;
+
+  // Why a number is missing: the Host reports a reason for the balance and for
+  // the FX table, and a failed request has its own message.
+  const failed = data.ok === false;
+  const notes = [];
+  function addNote(reason) {
+    const key = 'error.' + (reason || 'generic');
+    const text = t(key);
+    if (text && text !== key && notes.indexOf(text) === -1) notes.push(text);
+  }
+  const hasBalance = Boolean(balance && (balance.CNY != null || balance.USD != null));
+  if (failed) {
+    addNote(data.reason || 'generic');
+  } else if (cash == null) {
+    addNote(hasBalance ? (data.ratesReason || 'offline') : (data.balanceReason || 'no-account'));
+  }
+
+  function pushNotes() {
+    notes.forEach(function (text, index) {
+      rows.push(h('div', { key: 'note' + index, className: 'dpp-card-note' }, text));
+    });
+  }
 
   function pushPeak() {
     const nextAt = Number(data.nextChangeAt);
@@ -40,17 +69,17 @@ export function PetCard(state) {
     rows.push(h('div', { key: 'a1', className: 'dpp-card-label' }, t('card.answer')));
     rows.push(h('div', { key: 'a2', className: 'dpp-card-row' },
       h('span', null, formatTokens(last.tokens) + ' ' + t('card.tokens')),
-      h('span', { className: 'dpp-card-sum' }, formatMoney(cnyToUnit(last.cost, unit, rates), unit)),
+      h('span', { className: 'dpp-card-sum' }, money(last.cost)),
     ));
     rows.push(h('div', { key: 's1', className: 'dpp-card-label dpp-card-gap' }, t('card.session')));
     rows.push(h('div', { key: 's2', className: 'dpp-card-row' },
       h('span', null, formatTokens(session.tokens) + ' ' + t('card.tokens')),
-      h('span', { className: 'dpp-card-sum' }, formatMoney(cnyToUnit(session.cost, unit, rates), unit)),
+      h('span', { className: 'dpp-card-sum' }, money(session.cost)),
     ));
     if (saved > 0) {
       rows.push(h('div', { key: 'sv', className: 'dpp-card-row' },
         h('span', null, t('card.saved')),
-        h('span', { className: 'dpp-card-saved' }, '\u2212' + formatMoney(cnyToUnit(saved, unit, rates), unit)),
+        h('span', { className: 'dpp-card-saved' }, money(saved, true)),
       ));
     }
     rows.push(h('div', { key: 'cx', className: 'dpp-card-row' },
@@ -62,6 +91,7 @@ export function PetCard(state) {
       h('span', null, t('card.balance')),
       h('span', null, cash == null ? t('card.unavailable') : formatMoney(cash, unit)),
     ));
+    pushNotes();
     pushPeak();
   } else {
     rows.push(h('div', { key: 'label', className: 'dpp-card-label' }, t('card.balance')));
@@ -72,9 +102,10 @@ export function PetCard(state) {
       rows.push(h('div', { key: 's1', className: 'dpp-card-label' }, t('card.session')));
       rows.push(h('div', { key: 's2', className: 'dpp-card-row' },
         h('span', null, formatTokens(session.tokens) + ' ' + t('card.tokens')),
-        h('span', { className: 'dpp-card-sum' }, formatMoney(cnyToUnit(session.cost, unit, rates), unit)),
+        h('span', { className: 'dpp-card-sum' }, money(session.cost)),
       ));
     }
+    pushNotes();
     pushPeak();
   }
 

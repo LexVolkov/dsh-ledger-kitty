@@ -89,7 +89,14 @@ var __ledgerKitty = (() => {
     "line.3": "Take a breather",
     "line.4": "Nice work \u2728",
     "line.5": "One more step?",
-    "line.6": "Pet me \u{1F43E}"
+    "line.6": "Pet me \u{1F43E}",
+    "error.no-account": "DeepSeek account is not connected",
+    "error.signed-out": "Sign in to DeepSeek to see the balance",
+    "error.offline": "No network \u2014 exchange rates are unavailable",
+    "error.stale": "Exchange rates are stale",
+    "error.error": "Could not fetch the balance",
+    "error.generic": "Could not load the data",
+    "error.unreachable": "The Host is not responding"
   };
 
   // src/client/i18n/ru.js
@@ -136,7 +143,14 @@ var __ledgerKitty = (() => {
     "line.3": "\u041E\u0442\u0434\u043E\u0445\u043D\u0438 \u043D\u0435\u043C\u043D\u043E\u0433\u043E",
     "line.4": "\u0422\u044B \u043C\u043E\u043B\u043E\u0434\u0435\u0446 \u2728",
     "line.5": "\u0415\u0449\u0451 \u043E\u0434\u0438\u043D \u0448\u0430\u0433?",
-    "line.6": "\u041F\u043E\u0433\u043B\u0430\u0434\u044C \u043C\u0435\u043D\u044F \u{1F43E}"
+    "line.6": "\u041F\u043E\u0433\u043B\u0430\u0434\u044C \u043C\u0435\u043D\u044F \u{1F43E}",
+    "error.no-account": "\u0410\u043A\u043A\u0430\u0443\u043D\u0442 DeepSeek \u043D\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0451\u043D",
+    "error.signed-out": "\u0412\u043E\u0439\u0434\u0438\u0442\u0435 \u0432 \u0430\u043A\u043A\u0430\u0443\u043D\u0442 DeepSeek, \u0447\u0442\u043E\u0431\u044B \u0432\u0438\u0434\u0435\u0442\u044C \u0431\u0430\u043B\u0430\u043D\u0441",
+    "error.offline": "\u041D\u0435\u0442 \u0441\u0435\u0442\u0438 \u2014 \u043A\u0443\u0440\u0441\u044B \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u044B",
+    "error.stale": "\u041A\u0443\u0440\u0441\u044B \u0443\u0441\u0442\u0430\u0440\u0435\u043B\u0438",
+    "error.error": "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043F\u043E\u043B\u0443\u0447\u0438\u0442\u044C \u0431\u0430\u043B\u0430\u043D\u0441",
+    "error.generic": "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u0437\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C \u0434\u0430\u043D\u043D\u044B\u0435",
+    "error.unreachable": "Host \u043D\u0435 \u043E\u0442\u0432\u0435\u0447\u0430\u0435\u0442"
   };
 
   // src/client/i18n/uk.js
@@ -183,7 +197,14 @@ var __ledgerKitty = (() => {
     "line.3": "\u0412\u0456\u0434\u043F\u043E\u0447\u0438\u043D\u044C \u0442\u0440\u043E\u0445\u0438",
     "line.4": "\u0422\u0438 \u043C\u043E\u043B\u043E\u0434\u0435\u0446\u044C \u2728",
     "line.5": "\u0429\u0435 \u043E\u0434\u0438\u043D \u043A\u0440\u043E\u043A?",
-    "line.6": "\u041F\u043E\u0433\u043B\u0430\u0434\u044C \u043C\u0435\u043D\u0435 \u{1F43E}"
+    "line.6": "\u041F\u043E\u0433\u043B\u0430\u0434\u044C \u043C\u0435\u043D\u0435 \u{1F43E}",
+    "error.no-account": "\u0410\u043A\u0430\u0443\u043D\u0442 DeepSeek \u043D\u0435 \u043F\u0456\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u043E",
+    "error.signed-out": "\u0423\u0432\u0456\u0439\u0434\u0456\u0442\u044C \u0432 \u0430\u043A\u0430\u0443\u043D\u0442 DeepSeek, \u0449\u043E\u0431 \u0431\u0430\u0447\u0438\u0442\u0438 \u0431\u0430\u043B\u0430\u043D\u0441",
+    "error.offline": "\u041D\u0435\u043C\u0430\u0454 \u043C\u0435\u0440\u0435\u0436\u0456 \u2014 \u043A\u0443\u0440\u0441\u0438 \u043D\u0435\u0434\u043E\u0441\u0442\u0443\u043F\u043D\u0456",
+    "error.stale": "\u041A\u0443\u0440\u0441\u0438 \u0437\u0430\u0441\u0442\u0430\u0440\u0456\u043B\u0438",
+    "error.error": "\u041D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F \u043E\u0442\u0440\u0438\u043C\u0430\u0442\u0438 \u0431\u0430\u043B\u0430\u043D\u0441",
+    "error.generic": "\u041D\u0435 \u0432\u0434\u0430\u043B\u043E\u0441\u044F \u0437\u0430\u0432\u0430\u043D\u0442\u0430\u0436\u0438\u0442\u0438 \u0434\u0430\u043D\u0456",
+    "error.unreachable": "Host \u043D\u0435 \u0432\u0456\u0434\u043F\u043E\u0432\u0456\u0434\u0430\u0454"
   };
 
   // src/client/i18n/index.js
@@ -425,6 +446,7 @@ var __ledgerKitty = (() => {
     ".dpp-card-value{margin-top:3px;font-size:16px;font-weight:600;font-variant-numeric:tabular-nums}",
     ".dpp-card-saved{font-weight:600;color:var(--dsw-alias-state-success-primary)}",
     ".dpp-card-foot{margin-top:6px;font-size:10.5px;color:var(--dsw-alias-label-secondary)}",
+    ".dpp-card-note{margin-top:4px;font-size:10.5px;line-height:1.35;color:var(--dsw-alias-label-secondary)}",
     "@keyframes dpp-idle{0%,100%{transform:scale(1,1)}50%{transform:scale(1.01,.988)}}",
     "@keyframes dpp-hop{0%{transform:translateY(0) scale(1,1)}18%{transform:translateY(2px) scale(1.08,.9)}",
     "45%{transform:translateY(-22px) scale(.96,1.06)}70%{transform:translateY(0) scale(1.1,.88)}",
@@ -1079,12 +1101,35 @@ var __ledgerKitty = (() => {
     const balance = data.balance || {};
     const cashCny = balanceToCny(balance, rates);
     const cash = cnyToUnit(cashCny, unit, rates);
+    function money(value, negate) {
+      const converted = cnyToUnit(value, unit, rates);
+      if (converted == null) return t("card.unavailable");
+      return (negate ? "\u2212" : "") + formatMoney(converted, unit);
+    }
     const box = state.box || { shift: 0, tail: 80 };
     const rows = [];
     const saved = Number(session.saved) || 0;
     const contextTokens = Number(last.context) || 0;
     const windowTokens = Number(data.contextWindow) || 1e6;
     const percent = windowTokens > 0 ? Math.min(100, Math.round(contextTokens / windowTokens * 100)) : 0;
+    const failed = data.ok === false;
+    const notes = [];
+    function addNote(reason) {
+      const key = "error." + (reason || "generic");
+      const text = t(key);
+      if (text && text !== key && notes.indexOf(text) === -1) notes.push(text);
+    }
+    const hasBalance = Boolean(balance && (balance.CNY != null || balance.USD != null));
+    if (failed) {
+      addNote(data.reason || "generic");
+    } else if (cash == null) {
+      addNote(hasBalance ? data.ratesReason || "offline" : data.balanceReason || "no-account");
+    }
+    function pushNotes() {
+      notes.forEach(function(text, index) {
+        rows.push(h("div", { key: "note" + index, className: "dpp-card-note" }, text));
+      });
+    }
     function pushPeak() {
       const nextAt = Number(data.nextChangeAt);
       const remain = Number.isFinite(nextAt) ? nextAt - Date.now() : null;
@@ -1098,21 +1143,21 @@ var __ledgerKitty = (() => {
         "div",
         { key: "a2", className: "dpp-card-row" },
         h("span", null, formatTokens(last.tokens) + " " + t("card.tokens")),
-        h("span", { className: "dpp-card-sum" }, formatMoney(cnyToUnit(last.cost, unit, rates), unit))
+        h("span", { className: "dpp-card-sum" }, money(last.cost))
       ));
       rows.push(h("div", { key: "s1", className: "dpp-card-label dpp-card-gap" }, t("card.session")));
       rows.push(h(
         "div",
         { key: "s2", className: "dpp-card-row" },
         h("span", null, formatTokens(session.tokens) + " " + t("card.tokens")),
-        h("span", { className: "dpp-card-sum" }, formatMoney(cnyToUnit(session.cost, unit, rates), unit))
+        h("span", { className: "dpp-card-sum" }, money(session.cost))
       ));
       if (saved > 0) {
         rows.push(h(
           "div",
           { key: "sv", className: "dpp-card-row" },
           h("span", null, t("card.saved")),
-          h("span", { className: "dpp-card-saved" }, "\u2212" + formatMoney(cnyToUnit(saved, unit, rates), unit))
+          h("span", { className: "dpp-card-saved" }, money(saved, true))
         ));
       }
       rows.push(h(
@@ -1128,6 +1173,7 @@ var __ledgerKitty = (() => {
         h("span", null, t("card.balance")),
         h("span", null, cash == null ? t("card.unavailable") : formatMoney(cash, unit))
       ));
+      pushNotes();
       pushPeak();
     } else {
       rows.push(h("div", { key: "label", className: "dpp-card-label" }, t("card.balance")));
@@ -1143,9 +1189,10 @@ var __ledgerKitty = (() => {
           "div",
           { key: "s2", className: "dpp-card-row" },
           h("span", null, formatTokens(session.tokens) + " " + t("card.tokens")),
-          h("span", { className: "dpp-card-sum" }, formatMoney(cnyToUnit(session.cost, unit, rates), unit))
+          h("span", { className: "dpp-card-sum" }, money(session.cost))
         ));
       }
+      pushNotes();
       pushPeak();
     }
     return h(
@@ -1804,8 +1851,13 @@ var __ledgerKitty = (() => {
     const refreshCard = useCallback(function(mode, sessionId) {
       window.setTimeout(function() {
         fetchState(sessionId).then(function(data) {
-          if (data && data.ok) showCard(mode, data, mode === "receipt" ? 15e3 : 12e3);
+          if (data && data.ok) {
+            showCard(mode, data, mode === "receipt" ? 15e3 : 12e3);
+            return;
+          }
+          showCard(mode, { ok: false, reason: data && data.reason || "generic" }, 9e3);
         }).catch(function() {
+          showCard(mode, { ok: false, reason: "unreachable" }, 9e3);
         });
       }, mode === "receipt" ? 500 : 0);
     }, [showCard]);
