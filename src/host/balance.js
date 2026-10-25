@@ -1,12 +1,25 @@
 const BALANCE_TTL_MS = 30000;
 
 /**
- * Wallet balances from the DSH account login, cached for 30 seconds.
- * Returns `{ value, reason }` so the browser half can say *why* there is no
- * number: no account service, nobody signed in, or a request failure.
+ * Wallet balances from the DSH account login.
+ *
+ * The account service reports several different situations and they must not be
+ * conflated: no stored credential (`null`), a rejected/expired credential
+ * (`error.code === 'expired'`), or a failed request (`{ status: 'failed' }`).
+ * Only the first two mean "sign in"; the rest are temporary problems that the
+ * next poll can fix, so they are never cached.
  */
 export function createBalanceReader(ctx) {
   const cache = { at: 0, result: null };
+
+  async function stateReason(account) {
+    try {
+      const state = await account.getState();
+      return state && state.status === 'signed-out' ? 'signed-out' : 'error';
+    } catch (error) {
+      return 'error';
+    }
+  }
 
   return async function readBalance() {
     const account = ctx.get('deepseekAccount');
@@ -21,7 +34,9 @@ export function createBalanceReader(ctx) {
         timezoneOffsetSeconds: -new Date().getTimezoneOffset() * 60,
       };
       const response = await account.getBalance(meta);
-      if (response && response.status === 'ready') {
+      if (response == null) {
+        result = { value: null, reason: await stateReason(account) };
+      } else if (response.status === 'ready') {
         const wallets = [].concat(Array.isArray(response.value) ? response.value : []);
         const bonus = Array.isArray(response.bonusWallets) ? response.bonusWallets : [];
         const byCurrency = {};
@@ -31,19 +46,29 @@ export function createBalanceReader(ctx) {
           if (!Number.isFinite(amount)) continue;
           byCurrency[wallet.currency] = (byCurrency[wallet.currency] || 0) + amount;
         }
-        const value = {
-          CNY: Object.prototype.hasOwnProperty.call(byCurrency, 'CNY') ? byCurrency.CNY : null,
-          USD: Object.prototype.hasOwnProperty.call(byCurrency, 'USD') ? byCurrency.USD : null,
+        result = {
+          value: {
+            CNY: Object.prototype.hasOwnProperty.call(byCurrency, 'CNY') ? byCurrency.CNY : null,
+            USD: Object.prototype.hasOwnProperty.call(byCurrency, 'USD') ? byCurrency.USD : null,
+          },
+          reason: 'ok',
         };
-        result = { value: value, reason: 'ok' };
       } else {
-        result = { value: null, reason: 'signed-out' };
+        // `{ status: 'failed' }`: the request did not go through; not a sign-out.
+        result = { value: null, reason: 'error' };
       }
     } catch (error) {
-      result = { value: null, reason: 'error' };
+      result = {
+        value: null,
+        reason: error && error.code === 'expired' ? 'signed-out' : await stateReason(account),
+      };
     }
-    cache.at = Date.now();
-    cache.result = result;
+
+    // Cache only a real answer: a failure must be retried on the next poll.
+    if (result.reason === 'ok') {
+      cache.at = Date.now();
+      cache.result = result;
+    }
     return result;
   };
 }
