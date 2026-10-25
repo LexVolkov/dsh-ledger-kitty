@@ -54,10 +54,13 @@ publishes it on one read-only route, `GET /dsh-ledger-kitty/state?session=<id>`:
   then the same for the whole open session, the money the prompt cache saved
   (`cacheReadTokens × (miss − hit)`), the context size as tokens and percent of
   the 1M window, and the remaining balance underneath.
-- **Says what is missing** — no account, a signed-out session, no network or an
-  unreachable Host each get their own line under the balance instead of a bare
-  dash: “Аккаунт DeepSeek не подключён”, “Нет сети — курсы недоступны”, “Host не
-  отвечает”. A missing exchange rate renders as “—” and never as `$0.00`.
+- **Says what is missing** — no account, a signed-out session, a temporary
+  failure, no network or an unreachable Host each get their own line under the
+  balance instead of a bare dash: “Аккаунт DeepSeek не подключён”, “Войдите в
+  аккаунт DeepSeek”, “Не удалось получить баланс”, “Нет сети — курсы
+  недоступны”, “Host не отвечает”. A failed balance read is retried on the next
+  poll and is never cached; a missing exchange rate renders as “—” and never as
+  `$0.00`.
 - **Peak countdown** — the receipt ends with `непик · через 1 ч 15 мин`: the Host
   returns the next Beijing price boundary (`nextChangeAt`), so the cat tells you
   when the cheap tariff starts.
@@ -143,7 +146,7 @@ cost the reactions, never the cat.
 The cat is a rig, not a picture: head, ears, tail, body and four legs are separate
 groups. Movement is CSS transforms on those groups, so:
 
-- the walk cycle is four phase-shifted leg rotations plus a small body bob;
+- the typing tap is two phase-shifted leg rotations plus a small body bob;
 - the jump is squash-and-stretch on one wrapper, already implemented;
 - blinking swaps two eye layers, already implemented;
 - no frame assets, no fixed resolution, and the whole character is about 10 KB.
@@ -153,7 +156,7 @@ A PNG (or sprite-sheet) sequence only wins when the art needs painted texture
 with `steps()`. The behavior layer would stay the same; only the art layer would
 be swapped.
 
-## Next: walking and jumping
+## Next: walking
 
 Every leg already sits in its own group (`.dpp-leg-fl`, `.dpp-leg-fr`,
 `.dpp-leg-bl`, `.dpp-leg-br`), so the next step is:
@@ -161,8 +164,9 @@ Every leg already sits in its own group (`.dpp-leg-fl`, `.dpp-leg-fr`,
 1. a walk keyframe per leg pair (front-left with back-right, and the opposite);
 2. a patrol that moves the cat along the bottom or right edge and flips it on a
    direction change;
-3. sitting / grooming / sleeping states between walks;
-4. reactions to agent activity from the slot's `useSessionStatus` prop.
+3. sitting / grooming states between walks.
+
+Agent reactions, the receipt and the sounds are already in place.
 
 ## Project layout
 
@@ -175,8 +179,8 @@ src/host/
   index.js                apply(ctx): subscriptions + route
   pricing.js              prices, peak hours, token total
   ledger.js               usage fold, per-session ledger, log seeding
-  balance.js              account wallet reader (30 s cache)
-  rates.js                keyless FX table (6 h cache)
+  balance.js              account wallet reader (30 s cache, failure reasons)
+  rates.js                keyless FX table (6 h cache, stale fallback)
   route.js                GET /dsh-ledger-kitty/state
 src/client/
   index.js                createPlugin(require): locale + slot registration
@@ -195,6 +199,8 @@ src/client/
   ui/settings.js          settings panel
   ui/boundaries.js        error boundaries (built lazily)
 dist/client.js            build output, served to the page
+assets/                   cat art, storefront icon, screenshot
+screenshots.json          storefront gallery (1-8 paths)
 ```
 
 ```powershell
@@ -239,6 +245,11 @@ Requires DSH `>=0.2.1-0 <0.3.0`, declared as `engines.dsh`.
 ```powershell
 dsh plugin --profile web add dsh-ledger-kitty
 ```
+
+Listed in the DSH plugin catalog since 2026-10-24, category **Usage & Billing**:
+[catalog page](https://awesome-dsh-plugin.com/p/LexVolkov/dsh-ledger-kitty/) ·
+[npm](https://www.npmjs.com/package/dsh-ledger-kitty). The storefront gallery is
+driven by [screenshots.json](screenshots.json).
 
 For local development the profile can link this directory instead; after
 `npm run build` the page reloads the plugin, while a Host-side change needs an
