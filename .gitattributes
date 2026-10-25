@@ -1,0 +1,8 @@
+# Keep line endings stable across Windows and CI.
+* text=auto eol=lf
+
+# Build output and images are stored byte-for-byte.
+dist/client.js -text
+*.png binary
+*.jpg binary
+*.jpeg binary
