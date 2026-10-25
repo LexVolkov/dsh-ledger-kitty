@@ -9,6 +9,10 @@ every part can be animated separately and nothing is rasterized at a fixed size;
 on top of that it keeps the numbers: cost of the last answer, cost of the whole
 open session and the remaining balance, in one chosen currency.
 
+<p align="center">
+  <img src="assets/screen.webp" width="860" alt="Ledger Kitty in the DeepSeek Harness window: the receipt card with the answer cost, session cost, cache saving, context and balance, and the cat in the corner">
+</p>
+
 ## What it does today
 
 - **Stands on the floor** — the default spot is the bottom edge of the window and
